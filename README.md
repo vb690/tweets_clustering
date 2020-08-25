@@ -1,5 +1,7 @@
 # Estimate and cluster sentiment in tweets
 
+Small projects for estimating sentiment in tweets using a deep neural network and subsequently perfroming clustering on the embedding learned by the model.
+
 ## Problem
 
 ## Data
