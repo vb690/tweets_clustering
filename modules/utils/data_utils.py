@@ -3,7 +3,6 @@ import numpy as np
 from tensorflow.keras.utils import Sequence
 
 from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
 
 
 class DataGenerator(Sequence):
@@ -42,7 +41,9 @@ class DataGenerator(Sequence):
             np.random.shuffle(self.list_batches)
 
     def __data_generation(self, batch):
-        '''Generates data containing batch_size samples'''
+        '''
+        Generates data containing batch_size samples
+        '''
         X = np.load(
             f'{self.root_dir}\\inputs\\{batch}.npy',
             allow_pickle=True
@@ -71,14 +72,14 @@ def padding_list(my_list, max_len, pad):
         return my_list
 
 
-def tokenization(sentence, language, filt):
+def tokenization(sentence):
     """
     """
     tokens = sentence.split()
     tokens = [token for token in tokens if token[0] != '@']
     sentence = ' '.join(tokens)
     tokens = word_tokenize(sentence)
-    tokens = [token.lower() for token in tokens]   # if token.isalpha()]
+    tokens = [token.lower() for token in tokens if token.isalpha()]
     tokens = tokens + ['<EOS>']
     return tokens
 
@@ -95,32 +96,36 @@ def encoding(bag_of_sentences, max_len):
 
 
 def preprocessing(list_sentences, targets, max_len=60,
-                  max_batch=64, language='english'):
+                  max_batch=64):
     """
     """
-    filt = set(stopwords.words(language))
+    dict_sentences = {length: [] for length in range(2, max_len)}
+    dict_targets = {length: [] for length in range(2, max_len)}
     bag_of_sentences = [
-        tokenization(sentence, language, filt) for sentence in list_sentences
+        tokenization(sentence) for sentence in list_sentences
     ]
     encoder, decoder = encoding(
         bag_of_sentences=bag_of_sentences,
         max_len=max_len
     )
-    dict_sentences = {length: [] for length in range(max_len)}
-    dict_targets = {length: [] for length in range(max_len)}
+
     for sentence, target in zip(bag_of_sentences, targets):
 
+        if len(sentence) < 2:
+            continue
         bag_of_words = [encoder[word] for word in sentence]
         dict_sentences[len(bag_of_words)].append(bag_of_words)
 
         dict_targets[len(bag_of_words)].append([target] * len(bag_of_words))
 
     batch_count = 0
-    for length in range(1, max_len):
+    for length in range(2, max_len):
 
-        if len(dict_sentences[length]) < 2:
-            continue
         sentence_batch = np.array(dict_sentences[length])
+
+        if len(sentence_batch.shape) < 2:
+            print(sentence_batch.shape)
+            continue
         sentence_tar_batch = sentence_batch[:, 1:]
         sentence_batch = sentence_batch[:, :-1]
 
@@ -152,6 +157,9 @@ def preprocessing(list_sentences, targets, max_len=60,
                 batch_index * max_batch: minimum
             ]
             class_tar_sub_batch = np.float32(class_tar_sub_batch)
+
+            if len(sentence_sub_batch.shape) < 2:
+                print(sentence_sub_batch.shape)
 
             np.save(f'data\\inputs\\{batch_count}', sentence_sub_batch)
             np.save(f'data\\targets\\{batch_count}_1', class_tar_sub_batch)

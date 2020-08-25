@@ -1,45 +1,35 @@
-import os
-import shutil
-
-import pickle
-
 import pandas as pd
 
 from modules.utils.data_utils import preprocessing
+from modules.utils.general_utils import dirs_creation, dump_pickle
 
-DIRS = ['data\\inputs', 'data\\targets']
-FRAC = 0.025
+DIRS = ['data\\inputs', 'data\\targets', 'results\\objects']
+FRAC = 1.0
 
-for dir in DIRS:
-    if os.path.isdir(dir):
-        shutil.rmtree(dir)
-        os.mkdir(dir)
-    else:
-        os.mkdir(dir)
+dirs_creation(
+    dirs=DIRS,
+    wipe_dir=True,
+)
 
-df = pd.read_csv('data\\1_6_mil_twitter.csv', header=None)
+df = pd.read_csv('data\\csv\\cleaned\\airline_twitter.csv')
 df = df.sample(frac=FRAC).reset_index(drop=True)
-
-list_sentences = list(df[5].values)
-sentiments = df[0].map(
+list_sentences = list(df['tweet'].values)
+sentiments = df['sentiment'].map(
     {
-        2: 0,
-        4: 1,
-        0: 2
+        'neutral': 0,
+        'positive': 1,
+        'negative': 2
     }
 ).values
 
 encoder, decoder = preprocessing(
     list_sentences,
     sentiments,
-    max_len=1000,
-    language='english'
+    max_len=1000
 )
 
-encoder_file = open('results\\objects\\encoder.pkl', 'wb')
-pickle.dump(encoder, encoder_file)
-encoder_file.close()
-
-decoder_file = open('results\\objects\\decoder.pkl', 'wb')
-pickle.dump(decoder, decoder_file)
-decoder_file.close()
+dump_pickle(
+    objs=[encoder, decoder],
+    paths=['results\\objects'] * 2,
+    filenames=['encoder', 'decoder']
+)

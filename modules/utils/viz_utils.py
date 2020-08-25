@@ -6,10 +6,9 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-def __cluster_reults(sentences, embedding, sentiments, labels, pad=0):
+def __cluster_reults(sentences, embedding, sentiments, labels, decoder, pad=0):
     """
     """
-    decoder = pd.read_pickle('results\\objects\\decoder.pkl')
     sentiment_mapping = {
         0: 'Neutral',
         1: 'Positive',
@@ -89,7 +88,7 @@ def __cluster_visualizer(manifold, labels, title, **kwargs):
 
 
 def cluster_inspection(manifold, sentences, sentiments, labels, title,
-                       embedding, pad=0, verbose=10, **kwargs):
+                       embedding, decoder, pad=0, verbose=10, **kwargs):
     """
     """
     __cluster_visualizer(
@@ -103,6 +102,7 @@ def cluster_inspection(manifold, sentences, sentiments, labels, title,
         embedding,
         sentiments,
         labels,
+        decoder=decoder,
         pad=0
     )
 
