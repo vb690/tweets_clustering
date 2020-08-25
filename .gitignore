@@ -135,6 +135,6 @@ results/models/*
 results/objects/*
 
 # saved files
-*.cvs
+*.csv
 *.npy
 *.pkl
