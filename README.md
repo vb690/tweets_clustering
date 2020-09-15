@@ -4,11 +4,28 @@ Small projects for estimating sentiment in tweets using a deep neural network an
 
 ## Problem
 
-## Data
-
+Given a corpus of tweets we would like to infer the associated sentiment while also being able to individuate different themes inside the corpus. 
+ 
 ## Methodology
+We start from the assumption that tweets belonging to the same theme show similarities with respect to their sentiment and syntactic structure.   
+  
+If this assumption holds, for solving the above problem we would need a model able to extract the underlying association between a tweet and its sentiment while also retaining information on the internal organization of the tweet itself.  
+  
+Accessing the rappresentation learned by such a model would offer us a convenient feature space for organizing our corpus, where similarities and dissimilarities between tweets are reflected in terms of spatial coordinates.  
+
+### Pipeline
+
+### Supervised Model
+
+### Data
+
+### Embedding Extraction
+
+### Embedding Partitioning
 
 ## Results
+
+### Model Performance
 
 ### Model Predictions
 
