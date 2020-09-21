@@ -1,6 +1,6 @@
 # Estimate and cluster sentiment in tweets
 
-Small projects for estimating sentiment in tweets using a deep neural network and subsequently perfroming clustering on the embedding learned by the model.
+Small project for estimating sentiment in tweets using a deep neural network and subsequently perfroming clustering on the embedding learned by the model.
 
 ## Problem
 
@@ -11,9 +11,15 @@ We start from the assumption that tweets belonging to the same theme show simila
   
 If this assumption holds, for solving the above problem we would need a model able to extract the underlying association between a tweet and its sentiment while also retaining information on the internal organization of the tweet itself.  
   
-Accessing the rappresentation learned by such a model would offer us a convenient feature space for organizing our corpus, where similarities and dissimilarities between tweets are reflected in terms of spatial coordinates.  
+Accessing the rappresentation learned by such a model would offer us a convenient feature space for organizing our corpus. Here, similarities and dissimilarities between tweets would be reflected in terms of different placing in this new coordinate system.  
 
 ### Pipeline
+  
+The pipeline used for this project had the following steps:  
+  
+<p align="center">   
+  <img width="350" height="350"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/pipeline.png">
+</p> 
 
 ### Supervised Model
 
