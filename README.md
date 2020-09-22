@@ -26,7 +26,7 @@ The pipeline used for this project had the following steps:
 The Artificial Neural Network architecture used for this project was:
 
 <p align="center">   
-  <img width="350" height="350"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/model.png">
+  <img width="400" height="500"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/model.png">
 </p> 
 
 ### Data
