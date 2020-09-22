@@ -39,6 +39,13 @@ The Artificial Neural Network architecture used for this project was:
 
 ### Model Performance
 
+|               |        **Metric**        | **Training** | **Validation** |
+|---------------|:------------------------:|:------------:|:--------------:|
+| **Sentiment** | Categorical Crossentropy |     0.091    |      0.918     |
+|               |         Accuracy         |     0.966    |      0.778     |
+| **Next Word** | Categorical Crossentropy |     5.035    |      5.484     |
+|               |         Accuracy         |     0.157    |      0.146     |
+
 ### Model Predictions
 
 <p align="center">   
