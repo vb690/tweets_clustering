@@ -81,6 +81,7 @@ def tokenization(sentence):
     tokens = word_tokenize(sentence)
     tokens = [token.lower() for token in tokens if token.isalpha()]
     tokens = tokens + ['<EOS>']
+    tokens = ['<START>'] + tokens
     return tokens
 
 
@@ -104,6 +105,7 @@ def preprocessing(list_sentences, targets, max_len=60,
     bag_of_sentences = [
         tokenization(sentence) for sentence in list_sentences
     ]
+    print(bag_of_sentences)
     encoder, decoder = encoding(
         bag_of_sentences=bag_of_sentences,
         max_len=max_len
@@ -111,7 +113,7 @@ def preprocessing(list_sentences, targets, max_len=60,
 
     for sentence, target in zip(bag_of_sentences, targets):
 
-        if len(sentence) < 2:
+        if len(sentence) < 3:
             continue
         bag_of_words = [encoder[word] for word in sentence]
         dict_sentences[len(bag_of_words)].append(bag_of_words)
@@ -130,7 +132,7 @@ def preprocessing(list_sentences, targets, max_len=60,
         sentence_batch = sentence_batch[:, :-1]
 
         class_tar_batch = np.array(dict_targets[length])
-        class_tar_batch = class_tar_batch[:, 1:]
+        class_tar_batch = class_tar_batch[:, -1]
 
         num_batches = (
             sentence_batch.shape[0] + max_batch - 1

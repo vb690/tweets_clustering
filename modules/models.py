@@ -1,7 +1,6 @@
 from tensorflow.keras.layers import Activation, Dropout
-from tensorflow.keras.layers import SpatialDropout1D
+from tensorflow.keras.layers import SpatialDropout1D, Lambda
 from tensorflow.keras.layers import Input, LSTM, Embedding, Dense
-
 
 from tensorflow.keras.models import Model
 
@@ -28,10 +27,11 @@ def language_sentiment_model(voc_size, hp_dict, max_len=60,
     )(vectorization)
 
     # classification
+    last_state = Lambda(lambda x: x[:, -1, :])(recurrence_1)
     out_1 = Dense(
         units=hp_dict['dense_units'],
         name='dense_1'
-    )(recurrence_1)
+    )(last_state)
     out_1 = Dropout(hp_dict['dropout'])(out_1)
     out_1 = Dense(
         units=3,
@@ -44,7 +44,7 @@ def language_sentiment_model(voc_size, hp_dict, max_len=60,
             units=hp_dict['dense_units'],
             name='dense_2'
         )(recurrence_1)
-    out_2 = Dropout(hp_dict['dropout'])(out_2)
+    out_2 = SpatialDropout1D(hp_dict['dropout'])(out_2)
     out_2 = Dense(
         units=voc_size,
         name='dense_out_2'
