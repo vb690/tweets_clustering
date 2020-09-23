@@ -34,7 +34,7 @@ The Artificial Neural Network architecture used for this project was:
 ### Embedding Extraction
 
 <p align="center">   
-  <img width="400" height="500"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/embedding_extractor.png">
+  <img width="200" height="300"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/embedding_extractor.png">
 </p> 
 
 ### Embedding Partitioning
