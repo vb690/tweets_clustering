@@ -31,6 +31,17 @@ The Artificial Neural Network architecture used for this project was:
 
 ### Data
 
+The data used from this projects come from a [Kaggle challenge](https://www.kaggle.com/crowdflower/twitter-airline-sentiment) aimed to "Analyze how travelers in February 2015 expressed their feelings on Twitter".  
+  
+The script `preprocessing.py` expects to find in `data\\csv\\cleaned` a csv file named `airline_twitter.csv`. The data should have **at minimum** the following structure:
+
+|               |        **tweet**        | **sentiment** | 
+|---------------|:------------------------:|:------------:|
+| 0             | "A positive sentiment tweet" |     "positive"    |
+| 1             | "A negative sentiment tweet" |       "negative" |
+| 2             | "A neutral sentiment tweet" |     "neutral"    |
+| 3             |  ...         |         ...       |
+
 ### Embedding Extraction
 
 <p align="center">   
