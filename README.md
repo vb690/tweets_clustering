@@ -31,7 +31,7 @@ The Artificial Neural Network architecture used for this project was:
   <img width="400" height="500"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/model.png">
 </p> 
 
-The first portion of the model aims to learn a high level representtion of the inputs which is forced to be the "best representation" for performing sentiment classification and next-word estimation. The first task is aimed to capture the relationship beteen a tweet and its associated sentiment while the second tries to capture the underlying internal organization of the tweet. The contribution of this two task in shaping the high level representation is controlled by a $\gamma$ factor employed when computing the loss the model is trying to optimize for:  
+The first portion of the model aims to learn a high level representtion of the inputs which is forced to be the "best representation" for performing sentiment classification and next-word estimation. The first task is aimed to capture the relationship beteen a tweet and its associated sentiment while the second tries to capture the underlying internal organization of the tweet. The contribution of this two task in shaping the high level representation is controlled by a gamma factor employed when computing the loss the model is trying to optimize for:  
   
 ```python
 loss = (gamma * sentiment_loss) + next_word_loss
