@@ -4,14 +4,16 @@ Small project for estimating sentiment in tweets using a deep neural network and
 
 ## Problem
 
-Given a corpus of tweets we would like to infer the associated sentiment while also being able to individuate different themes inside the corpus. 
+Given a corpus of tweets we would like to infer the associated sentiment while also being able to individuate different groups inside the corpus. 
  
 ## Methodology
-We start from the assumption that tweets belonging to the same theme show similarities with respect to their sentiment and syntactic structure.   
+We start from the assumption that tweets belonging to the same group show similarities with respect to their sentiment and syntactic structure.   
   
 If this assumption holds, for solving the above problem we would need a model able to extract the underlying association between a tweet and its sentiment while also retaining information on the internal organization of the tweet itself.  
   
-Accessing the rappresentation learned by such a model would offer us a convenient feature space for organizing our corpus. Here, similarities and dissimilarities between tweets would be reflected in terms of different placing in this new coordinate system.  
+Accessing the representation learned by such a model (a representation **embedded** within the model input) would offer us a convenient feature space for organizing our corpus. Here, similarities and dissimilarities between tweets would be reflected in terms of their different locations in a new coordinate system learned by the model.  
+  
+Therefore, partitioning the above representation (or individuating areas of high density) could allow us to individuate collections of tweets with distinct peculiarities with repsect to their sentiment and internal organization.
 
 ### Pipeline
   
@@ -29,6 +31,12 @@ The Artificial Neural Network architecture used for this project was:
   <img width="400" height="500"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/model.png">
 </p> 
 
+The first portion of the model aims to learn a high level representtion of the inputs which is forced to be the "best representation" for performing sentiment classification and next-word estimation. The first task is aimed to capture the relationship beteen a tweet and its associated sentiment while the second tries to capture the underlying internal organization of the tweet. The contribution of this two task in shaping the high level representation is controlled by a $\gamma$ factor employed when computing the loss the model is trying to optimize for:  
+  
+```python
+loss = (gamma * sentiment_loss) + next_word_loss
+```
+
 ### Data
 
 The data used from this projects come from a [Kaggle challenge](https://www.kaggle.com/crowdflower/twitter-airline-sentiment) aimed to "Analyze how travelers in February 2015 expressed their feelings on Twitter".  
@@ -44,6 +52,7 @@ The script `preprocessing.py` expects to find in `data\\csv\\cleaned` a csv file
 
 ### Embedding Extraction
 
+For 
 <p align="center">   
   <img width="200" height="300"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/embedding_extractor.png">
 </p> 
