@@ -25,13 +25,13 @@ The pipeline used for this project had the following steps:
 
 ### Supervised Model
 
-The Artificial Neural Network architecture used for this project was:
+The Artificial Neural Network architecture used for this project was implemented according to the following architecture:
 
 <p align="center">   
   <img width="400" height="500"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/model.png">
 </p> 
 
-The first portion of the model aims to learn a high level representtion of the inputs which is forced to be the "best representation" for performing sentiment classification and next-word estimation. The first task is aimed to capture the relationship beteen a tweet and its associated sentiment while the second tries to capture the underlying internal organization of the tweet. The contribution of this two task in shaping the high level representation is controlled by a gamma factor employed when computing the loss the model is trying to optimize for:  
+The first portion of the model aims to learn a high level representtion of the inputs which is forced to be the "best representation" for performing sentiment classification and next-word estimation. The first task is aimed to discover the relationship beteen a tweet and its associated sentiment while the second tries to capture the underlying internal organization of the tweet. The contribution of this two task in shaping the high level representation is controlled by a gamma factor employed when computing the loss the model is trying to optimize for:  
   
 ```python
 loss = (gamma * sentiment_loss) + next_word_loss
@@ -52,10 +52,13 @@ The script `preprocessing.py` expects to find in `data\\csv\\cleaned` a csv file
 
 ### Embedding Extraction
 
-For 
+For extracting the representation learned by the model we constructed an encoder composed by all the transformation perfromed by the model in its first portion:
+
 <p align="center">   
   <img width="200" height="300"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/embedding_extractor.png">
 </p> 
+
+The encoder would return as many N dimensional vectors (where N is the number of hidden units in the last layer of the encoder) as there are words in the input tweet. The last vector in the sequence should supposedly carry information of all the preceeding vectors therefore being suitbale for representing the tweet in its entirety.
 
 ### Embedding Partitioning
 
