@@ -1,0 +1,9 @@
+numpy
+pandas
+nltk
+tensorflow
+sklearn
+hdbscan
+umap-learn
+matplolib
+seaborn
