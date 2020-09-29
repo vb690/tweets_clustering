@@ -13,7 +13,7 @@ If this assumption holds, for solving the above problem we would need a model ab
   
 Accessing the representation learned by such a model (a representation **embedded** within the model input) would offer us a convenient feature space for organizing our corpus. Here, similarities and dissimilarities between tweets would be reflected in terms of their different locations in a new coordinate system learned by the model.  
   
-Therefore, partitioning the above representation (or individuating areas of high density) could allow us to individuate collections of tweets with distinct peculiarities with repsect to their sentiment and internal organization.
+Therefore, partitioning the above representation (or individuating areas of high density) could allow us to discover collections of tweets with distinct peculiarities with repsect to their sentiment and internal organization.
 
 ### Pipeline
   
@@ -58,10 +58,22 @@ For extracting the representation learned by the model we constructed an encoder
   <img width="200" height="300"src="https://github.com/vb690/tweets_clustering/blob/master/results/figures/embedding_extractor.png">
 </p> 
 
-The encoder would return as many N dimensional vectors (where N is the number of hidden units in the last layer of the encoder) as there are words in the input tweet. The last vector in the sequence should supposedly carry information of all the preceeding vectors therefore being suitbale for representing the tweet in its entirety.
+The encoder will return as many *Z* dimensional vectors (where *Z* is the number of hidden units in the last layer of the encoder) as there are words in the input tweet. The last vector in the sequence should supposedly carry information of all the preceeding vectors therefore being suitbale for representing the tweet in its entirety.
 
 ### Embedding Partitioning
 
+Once a corpus of *T* tweets is passed through the encoder we obtain an *T* X *Z* matrix suitable for being clustered or partitioned using an unsupervised approach. At this point we can map the individuated *C* clusters (or partitions) back to the original corpus for inspecting the characteristics of the tweets belonging to a specific partition.
+
+
+|               |        **tweet**             | **sentiment**    |        **cluster**             | 
+|---------------|:----------------------------:|:----------------:|:-------------------------------:
+| 0             | "A positive sentiment tweet" |     "positive"   | 0 |
+| 1             | "A negative sentiment tweet" |     "negative"   | 0 |
+| 2             | "A neutral sentiment tweet"  |     "neutral"    | 1 |
+| 3             | "A positive sentiment tweet" |     "positive"   | 2 |
+| 4             | "A negative sentiment tweet" |     "negative"   | 1 |
+| 5             | "A neutral sentiment tweet"  |     "neutral"    | 2 |
+| 6             |             ...              |        ...       | ... |
 ## Results
 
 ### Model Performance
